@@ -19,8 +19,6 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import permission_classes
 from rest_framework.authtoken.models import Token
 
-api_key = "AIzaSyBxpiwthtXp5OUBFCF2ltn1uh-0q3n5gk4"
-youtube = build('youtube', 'v3', developerKey=api_key)
 
 # Create your views here.
 

@@ -73,8 +73,7 @@ Enter your YouTube API KEY:
 
 This is the default artist page
 
-(https://github.com/xXSlothaiXx/DTunes/blob/master/media/artists/default.jpg)
-
+![Image of artist default](https://github.com/xXSlothaiXx/DTunes/blob/master/media/artists/default.jpg)
 
 
 

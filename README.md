@@ -1,2 +1,2 @@
-# DTunes Decentralized Music Application
+# DTunes Music Application
 

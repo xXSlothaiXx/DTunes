@@ -53,7 +53,7 @@ Once you've entered your localhost.run url, the prompt will ask for your youtube
 Enter your YouTube API KEY:
 ```
 
-If you've done everthing CORRECTLY, you should be able to run the installer script with no problem. 
+### Run the Installer Script 
 
 ```
 ./install.sh

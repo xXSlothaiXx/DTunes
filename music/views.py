@@ -49,6 +49,12 @@ def empty_dir(select_path):
 api_key = "{}".format(api_token) 
 youtube = build('youtube', 'v3', developerKey=api_key)
 
+
+class GetYTAPIKey(APIView):
+    def get(self, request, format=None):
+        return Response({"youtube_api_key": api_token}) 
+
+
 class SuperUser(APIView):
     def post(self, request, format=None):
         username = request.data['username']

@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     #lists
 
+    url(r'^youtube/', views.GetYTAPIKey.as_view(), name='youtube-api'),
     url(r'^api-token/', views.ConfigureAPIToken.as_view(), name='api-token'),
     url(r'^search/$', views.SearchSongs.as_view(), name='search-songs'),
     url(r'^system/', views.SystemInfo.as_view(), name='system-info'),

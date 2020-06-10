@@ -122,7 +122,7 @@ class SongArtistView(APIView):
 class ArtistView(APIView):
 
     def get(self, request, format=None):
-        songs = Artist.objects.filter(followers=request.user).order_by('-date_posted')
+        songs = Artist.objects.all().order_by('-date_posted')
         serializer = ViewArtistSerializer(songs, context={"request": request}, many=True)
         return Response(serializer.data)
 

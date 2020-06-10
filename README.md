@@ -22,6 +22,12 @@ cd DTunes
 
 ### Run the Configuration Script
 
+```
+apt-get install python3 && pip3 
+
+use sudo if needed.
+```
+
 After you clone the repository, run the cofig.py file and follow the https://localhost.run setup and enter your YouTube API Key. 
 
 ```

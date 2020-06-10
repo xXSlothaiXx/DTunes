@@ -63,7 +63,7 @@ Enter your YouTube API KEY:
 ```
 If the installer script worked, it should look like this at the end.... 
 
-![Image of installer script working](https://github.com/xXSlothaiXx/DTunes/blob/master/media/artists/default.jpg)
+![Image of installer script working](https://github.com/xXSlothaiXx/DTunes/blob/master/media/github-photos/github1.png)
 
 ## Run your server
 

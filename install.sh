@@ -18,4 +18,4 @@ python3 manage.py makemigrations music
 python3 manage.py makemigrations mobile
 python3 manage.py migrate
  echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'diffusion')" | python3 manage.py shell
- python3 your_url.py
+ python3 manage.py migrate

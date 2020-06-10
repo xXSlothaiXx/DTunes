@@ -3,7 +3,7 @@ DTunes is a decentralized music application that allows you to listen to music o
 ## Table of Contents
 
 1.) [Install. ](#install)  
-2.) [Obtain YouTube API Key. ](#youtubekey)  
+2.) [YouTube API Key. ](#youtubekey)  
 3.) [Configuration. ](#config)     
 
 <a name="install"></a> 

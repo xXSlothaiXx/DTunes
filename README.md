@@ -39,18 +39,9 @@ python3 config.py
 
 When you run the config.py file, it will first give you the option to create a local ssh Tunnel using localhost.run
 The promopt will look like this..
-```
-===========================================================================
-Open up a terminal and PASTE THIS COMMAND: "ssh -R 80:localhost:8000 ssh.localhost.run"
-===========================================================================
-When you type this command it should give you a url, COPY the domain
-EXAMPLE URL:  https://PCUSERNAME-randomstring.localhost.run/
-YOUR URL: PCUSERNAME-randomstring.localhost.run
-Make sure you REMOVE THE HTTPS:// and only copy the domain name
-the url should be: PCUSERNAME-randomchars.localhost.run
-===========================================================================
-Enter your localhost.run url:
-```
+
+![Image of config script working](https://github.com/xXSlothaiXx/DTunes/blob/master/media/github-photos/Screenshot%20from%202020-06-10%2019-07-16.png)
+
 To get your https://localhost.run  url, you'll need to open up another terminal and run this command...
 
 ```

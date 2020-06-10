@@ -38,7 +38,14 @@ Make sure you REMOVE THE HTTPS:// and only copy the domain name
 the url should be: PCUSERNAME-randomchars.localhost.run
 ===========================================================================
 Enter your localhost.run url:
+```
+To get your localhost.run url, you'll need to open up another terminal and run this command...
 
 ```
+ssh -R 80:localhost:8000 ssh.localhost.run
+```
+
+After you run that command it should return a URL something like this: https://PCUSERNAME-randomstring.localhost.run/
+Copy that url WITHOUT HTTP:// or HTTPS://, YOU ONLY need the DOMAIN. If you don't do this correctly, your port forward will not work correctly. 
 
 ## Download the APP

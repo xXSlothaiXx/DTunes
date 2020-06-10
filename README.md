@@ -70,10 +70,11 @@ Enter your YouTube API KEY:
 ```
 ./install.sh
 ```
+If the installer script worked, it should look like this at the end.... 
 
-This is the default artist page
+![Image of installer script working](https://github.com/xXSlothaiXx/DTunes/blob/master/media/artists/default.jpg)
 
-![Image of artist default](https://github.com/xXSlothaiXx/DTunes/blob/master/media/artists/default.jpg)
+## Run your server
 
 
 

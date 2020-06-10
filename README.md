@@ -35,6 +35,8 @@ After you clone the repository, run the cofig.py file and follow the https://loc
 python3 config.py
 ```
 
+### Localhost SSH Tunnel Setup
+
 When you run the config.py file, it will first give you the option to create a local ssh Tunnel using localhost.run
 The promopt will look like this..
 ```

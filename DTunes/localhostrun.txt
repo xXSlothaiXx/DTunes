@@ -1,1 +1,1 @@
-xxslothaixx-ff9a78cc.localhost.run
+local_url

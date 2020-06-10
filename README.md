@@ -45,7 +45,24 @@ To get your localhost.run url, you'll need to open up another terminal and run t
 ssh -R 80:localhost:8000 ssh.localhost.run
 ```
 
-After you run that command it should return a URL something like this: https://PCUSERNAME-randomstring.localhost.run/
-Copy that url WITHOUT HTTP:// or HTTPS://, YOU ONLY need the DOMAIN. If you don't do this correctly, your port forward will not work correctly. 
+After you run that command it should return a URL something like this: https://PCUSERNAME-randomstring.localhost.run/. Copy that url WITHOUT HTTP:// or HTTPS://, YOU ONLY need the DOMAIN. If you don't do this correctly, your port forward will not work correctly. 
+
+Once you've entered your localhost.run url, the prompt will ask for your youtube API KEY. You should have a YouTube API Key if you're are following this guide in order. 
+
+```
+Enter your YouTube API KEY:
+```
+
+If you've done everthing CORRECTLY, you should be able to run the installer script with no problem. 
+
+```
+./install.sh
+```
+
+
+
+
+
+
 
 ## Download the APP

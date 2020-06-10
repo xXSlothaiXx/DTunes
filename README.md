@@ -71,6 +71,10 @@ Enter your YouTube API KEY:
 ./install.sh
 ```
 
+This is the default artist page
+
+(https://github.com/xXSlothaiXx/DTunes/blob/master/media/artists/default.jpg)
+
 
 
 

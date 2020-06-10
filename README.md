@@ -67,6 +67,10 @@ If the installer script worked, it should look like this at the end....
 
 ## Run your server
 
+```
+python3 dtunes.py 
+```
+
 
 
 

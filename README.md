@@ -5,7 +5,7 @@ DTunes is a decentralized music application that allows you to listen to music o
  
 1.) [YouTube API Key. ](#youtubekey)      
 2.) [Install. ](#install)   
-3.) [GUI Interface. ](#GUI)  
+3.) [GUI Interface. ](#GUI)
 
 <a name="youtubekey"></a> 
 <a name="install"></a> 
@@ -22,7 +22,7 @@ cd DTunes
 
 ### Run the Configuration Script
 
-After you clone the repository, run the cofig.py file and follow the localhost.run setup and enter your YouTube API Key. 
+After you clone the repository, run the cofig.py file and follow the https://localhost.run setup and enter your YouTube API Key. 
 
 ```
 python3 config.py
@@ -42,7 +42,7 @@ the url should be: PCUSERNAME-randomchars.localhost.run
 ===========================================================================
 Enter your localhost.run url:
 ```
-To get your localhost.run url, you'll need to open up another terminal and run this command...
+To get your https://localhost.run  url, you'll need to open up another terminal and run this command...
 
 ```
 ssh -R 80:localhost:8000 ssh.localhost.run

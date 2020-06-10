@@ -22,7 +22,7 @@ cd DTunes
 
 ### Run the Configuration Script
 
-If you don't have python run the command below
+If you don't have Python3 , run the command below
 ```
 apt-get install python3 && pip3 
 

@@ -23,17 +23,6 @@ def configure_url():
     f.write(url) 
     f.close()
 
-def api_token():
-    print('===========================================================================')
-    print('Visit https://developers.google.com/youtube/registering_an_application and obtain your API KEY not OAUTH KEY')
-    print('===========================================================================') 
-    token = input("Enter your YouTube API KEY:") 
-    my_path = os.path.dirname(os.path.abspath(__file__))
-    host_path = os.path.join(my_path, 'music/api_key.txt')
-    f = open(host_path, "w") 
-    f.write(token) 
-    f.close()
 
 
 configure_url() 
-api_token() 

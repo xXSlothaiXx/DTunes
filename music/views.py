@@ -4,9 +4,6 @@ from .serializers import UploadSongSerializer, ViewSongSerializer, ViewArtistSer
 from rest_framework.views import APIView
 from django.http import HttpResponse, Http404
 from rest_framework.response import Response
-from pytube import YouTube
-from apiclient.discovery import build
-from pytube import YouTube
 import json
 import requests
 import os
@@ -118,6 +115,8 @@ class SyncSongsNetwork(APIView):
             print(song.video_id) 
         #send it to the selected network address
 
+
+
 class SyncSong(APIView):
 
     def post(self, request, format=None):
@@ -135,11 +134,18 @@ class SyncSong(APIView):
             artist = Artist.objects.get(name=artist_name)
             my_path = os.path.dirname(os.path.abspath(__file__))
             video_path = os.path.join(my_path, 'videos')
-            help_tube = YouTube(youtube_url).streams.first().download(video_path)
+
+            ydl_opts = {
+                    'restrictfilenames': 'true'
+                    }
+            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(youtube_url, download=True)
+                file_name = ydl.prepare_filename(info)
+
             current_path = os.path.dirname(os.path.abspath(__file__))
             file_path = os.path.join(current_path, 'thumbnails')
             thumbnail_image_path = check_image_type(thumbnail_url, file_path)
-            media_file = open(help_tube, 'rb')
+            media_file = open(file_name, 'rb')
             thumbnail_image = open(thumbnail_image_path, 'rb')
 
             data = {
@@ -157,6 +163,8 @@ class SyncSong(APIView):
 
             #empty_dir(video_path)
             #empty_dir(file_path)
+            os.remove(file_name) 
+            print('REMOVED FILE') 
 
             return Response({"Message": "Added song to existing channel"})
 
@@ -171,11 +179,19 @@ class SyncSong(APIView):
             my_path = os.path.dirname(os.path.abspath(__file__))
             video_path = os.path.join(my_path, 'videos')
             print('got here')
-            help_tube = YouTube(youtube_url).streams.first().download(video_path)
+
+            ydl_opts = {
+                    'restrictfilenames': 'true'
+                    }
+
+            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(youtube_url, download=True)
+                file_name = ydl.prepare_filename(info)
+
             current_path = os.path.dirname(os.path.abspath(__file__))
             file_path = os.path.join(current_path, 'thumbnails')
             thumbnail_image_path = check_image_type(thumbnail_url, file_path)
-            media_file = open(help_tube, 'rb')
+            media_file = open(file_name, 'rb')
             thumbnail_image = open(thumbnail_image_path, 'rb')
 
             user_file = User.objects.get(id=1)
@@ -196,11 +212,10 @@ class SyncSong(APIView):
             print("THIS SHIT WORKED")
 
             empty_dir(file_path)
-            empty_dir(video_path)
+            os.remove(file_name)
+            print('Removed file') 
 
             return Response({"Message": "Created new artist and song"})
-
-
 
 
 

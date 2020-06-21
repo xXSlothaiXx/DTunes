@@ -6,8 +6,6 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from django.http import HttpResponse, Http404
 from rest_framework.response import Response
-from apiclient.discovery import build
-from pytube import YouTube
 import json
 import requests
 import os

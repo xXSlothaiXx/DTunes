@@ -10,11 +10,7 @@ pkg install libjpeg-turbo
 pip3 install Pillow
 pip3 install sorl-thumbnail
 pip3 install django-extra-fields
-cd music
-cd pytube
-sudo python3 setup.py install
-cd ../
-cd ../
+pip3 install pytube
 python3 manage.py migrate
 python3 manage.py makemigrations users
 python3 manage.py makemigrations music

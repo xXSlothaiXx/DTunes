@@ -15,6 +15,7 @@ import psutil
 from psutil import virtual_memory
 import platform
 import shutil
+import youtube_dl
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))

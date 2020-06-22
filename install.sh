@@ -1,6 +1,7 @@
 pkg install python
 sudo apt-get install python-django
 pip3 install psutil
+pip3 install requests
 pip3 install Django
 pip3 install djangorestframework
 pip3 install django-cors-headers

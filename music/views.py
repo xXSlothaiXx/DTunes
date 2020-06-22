@@ -56,6 +56,8 @@ class SystemInfo(APIView):
         return Response({"HDD Total": "{} GB".format(round(total_space)), "HDD Used": "{} GB".format(round(used_space)), "HDD Free": "{} GB".format(round(free_space)), "Ram": "{} GB".format(round(ram)), "CPU": "{}".format(processor)}) 
 
 
+
+
 def check_image_type(image_url, file_path):   
     try: 
         check = requests.get(image_url)
@@ -71,6 +73,11 @@ def check_image_type(image_url, file_path):
         elif content_type == 'image/jpg':
             urllib.request.urlretrieve(image_url, '{}/thumbnail_image.jpg'.format(file_path))  
             thumbnail_image_path = '{}/thumbnail_image.jpg'.format(file_path)
+
+        elif content_type == 'image/webp':
+            urllib.request.urlretrieve(image_url, '{}/thumbnail_image.webp'.format(file_path))  
+            thumbnail_image_path = '{}/thumbnail_image.webp'.format(file_path)
+
         elif content_type == 'image/jpeg':
             urllib.request.urlretrieve(image_url, '{}/thumbnail_image.jpeg'.format(file_path))
             thumbnail_image_path = '{}/thumbnail_image.jpeg'.format(file_path)
@@ -126,7 +133,9 @@ class SyncSong(APIView):
         url_convert = requests.get('https://noembed.com/embed?url={}'.format(youtube_url))
         convert = url_convert.text
         convert_json = json.loads(convert)
-        thumbnail_url = convert_json["thumbnail_url"]
+        temp_thumbnail_url = convert_json["thumbnail_url"]
+        vi_webp = temp_thumbnail_url.replace("vi", "vi_webp")
+        thumbnail_url = vi_webp.replace("hqdefault.jpg", "maxresdefault.webp") 
         artist_name = convert_json["author_name"]
         song_title = convert_json["title"]
         print('Getting metadata from https://www.noembed.com')
@@ -210,7 +219,6 @@ class SyncSong(APIView):
             print('hitting endpoint')
             artist_request = requests.post('http://{}:8000/music/sync/{}/'.format(client_ip, create_artist.pk), files={'media_file': media_file, 'thumbnail': thumbnail_image}, data=data, headers=headers)
             print(artist_request.status_code)
-            print("THIS SHIT WORKED")
 
             empty_dir(file_path)
             os.remove(file_name)

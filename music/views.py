@@ -56,8 +56,6 @@ class SystemInfo(APIView):
         return Response({"HDD Total": "{} GB".format(round(total_space)), "HDD Used": "{} GB".format(round(used_space)), "HDD Free": "{} GB".format(round(free_space)), "Ram": "{} GB".format(round(ram)), "CPU": "{}".format(processor)}) 
 
 
-
-
 def check_image_type(image_url, file_path):   
     try: 
         check = requests.get(image_url)

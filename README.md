@@ -71,7 +71,7 @@ After you run that command it should return a URL something like this: https://P
 ## Download the Native Application
 
 #### Android
-Coming soon.... DTunes is currently getting approved by the Google Play Store.
+https://play.google.com/store/apps/details?id=dtunes.application.dtunesrelease
 
 #### IPhone
 I will not be releasing this for IOS because Apple will make me pay WAY too much money just to keep it on the App Store...... Sorry not sorry IPhone users

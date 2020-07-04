@@ -18,15 +18,11 @@ from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
-from users import views as user_views
 from rest_framework.authtoken import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^music/', include('music.urls')),
-    url(r'^mobile/', include('mobile.urls')),
-    url(r'^users/', include('users.urls')),
-    url(r'^public/', include('public.urls')),
+    url(r'dtunes/', include('dtunes.urls')),
     url(r'^api-token-auth/', views.obtain_auth_token, name="api-token-auth"),
 
 

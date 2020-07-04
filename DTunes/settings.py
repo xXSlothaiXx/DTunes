@@ -49,11 +49,8 @@ ALLOWED_HOSTS = ['{}'.format(client_ip), '127.0.0.1', '{}'.format(localhost_url)
 # Application definition
 
 INSTALLED_APPS = [
-    'music',
     'corsheaders',
-    'users',
-    'mobile',
-    'public', 
+    'dtunes', 
     'rest_framework.authtoken',
     'rest_framework',
     'django.contrib.admin',

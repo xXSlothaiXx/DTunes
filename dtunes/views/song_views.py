@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from dtunes.models import Artist, Song, Playlist, Profile
+from dtunes.models import  Song, Playlist, Profile
 from dtunes.serializers import *
 #from dtunes.serializers import RegistrationSerializer, ViewUserSerializer, CreateArtistPhotoSerializer, CreateArtistSerializer, CreatePlaylistPhotoSerializer, CreatePlaylistSerializer, ViewPlaylistSerializer, ViewArtistSerializer, ViewSongSerializer
 from django.shortcuts import render
@@ -37,12 +37,6 @@ class SongsView(APIView):
         return Response({"Message": song})
 
 
-class ArtistSongs(APIView):
-    def get(self, request, pk, format=None):
-        songs = Song.objects.filter(artist=pk).order_by('-date_posted')
-        serializer = ViewSongSerializer(songs, context={"request": request}, many=True)
-        return Response(serializer.data)
-
 
 class TopSongs(APIView):
     def get(self, request, format=None):
@@ -66,11 +60,12 @@ class SongDetailView(APIView):
         serializer = ViewSongSerializer(song)
         return Response(serializer.data)
 
-    def post(self, request, pk, format=None):
-        artist =  Artist.objects.get(pk=pk)
+
+class SongSync(APIView):
+    def post(self, request, format=None):
         serializer = UploadSongSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(artist=artist, artistname=artist)
+            serializer.save()
             return Response({"message": "created song"})
         else:
             return Response({"Message": "you failed"})
@@ -115,13 +110,6 @@ class PublicSongs(APIView):
         serializer = ViewPublicSongSerializer(songs, many=True)
         return Response(serializer.data)
 
-
-@permission_classes((AllowAny,))
-class PublicSongArtist(APIView):
-    def get(self, request, pk, format=None):
-        songs = Song.objects.filter(artist=pk).order_by('-plays')
-        serializer = ViewSongSerializer(songs, context={"request": request}, many=True)
-        return Response(serializer.data)
 
 class PublicSongSearch(generics.ListCreateAPIView):
     search_fields = ['name']

@@ -35,15 +35,7 @@ for line in host_file:
 client_ip = fields[0]
 
 
-localhost_path = os.path.join(my_path, 'localhostrun.txt')
-
-localhost_file = open(localhost_path)
-for line in localhost_file:
-    myfields = line.strip().split()
-
-localhost_url = myfields[0]
-
-ALLOWED_HOSTS = ['{}'.format(client_ip), '127.0.0.1', '{}'.format(localhost_url)]
+ALLOWED_HOSTS = ['{}'.format(client_ip), '127.0.0.1']
 
 
 # Application definition

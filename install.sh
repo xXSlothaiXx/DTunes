@@ -12,5 +12,5 @@ pip3 install youtube_dl
 python3 manage.py migrate
 python3 manage.py makemigrations dtunes
 python3 manage.py migrate
- echo "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'diffusion')" | python3 manage.py shell
+ echo "from django.contrib.auth.models import User; User.objects.create_superuser('DTunes', 'admin@example.com', 'diffusion')" | python3 manage.py shell
  python3 manage.py migrate

@@ -16,6 +16,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import permission_classes
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
+import re, uuid
+import socket
 
 @permission_classes((AllowAny,))
 class RegisterView(APIView):
@@ -38,4 +40,6 @@ class UserView(APIView):
     def get(self, request, format=None):
         users = User.objects.all()
         serializer = ViewUserSerializer(users, many=True) 
-        return Response(serializer.data) 
+        return Response(serializer.data)
+
+#create route that distrubutes token, mac address and

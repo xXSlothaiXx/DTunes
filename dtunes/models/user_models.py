@@ -15,6 +15,14 @@ class Profile(models.Model):
     def __str__(self):
         return  '{} Profile'.format(self.user.username)
 
+class Device(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+
+    def __str__(self): 
+        return '{} Device IP'.fomat(self.address) 
+
+
 class PlaylistManager(models.Manager):
     
     #Need to add exceptions in case of errors
@@ -32,6 +40,7 @@ class PlaylistManager(models.Manager):
         playlist = self.objects.get(pk=pk)
         playlist.songs.remove(songid)
         return playlist
+
 
 class Playlist(models.Model):
     user = models.ForeignKey(User, related_name="apiplaylistuser", on_delete=models.CASCADE)

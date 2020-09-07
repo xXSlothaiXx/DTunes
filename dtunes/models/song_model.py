@@ -2,7 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.conf import settings
-from .artist_model import Artist
 import json
 import requests
 import os
@@ -14,6 +13,7 @@ import platform
 import shutil
 import youtube_dl
 from rest_framework.authtoken.models import Token
+import time
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(("8.8.8.8", 80))
@@ -72,7 +72,7 @@ class SongManager(models.Manager):
         return songs
 
     def sync_song(self, youtube_url):
-
+        
         url_convert = requests.get('https://noembed.com/embed?url={}'.format(youtube_url))
         convert = url_convert.text
         convert_json = json.loads(convert)
@@ -82,106 +82,50 @@ class SongManager(models.Manager):
         artist_name = convert_json["author_name"]
         song_title = convert_json["title"]
 
-        if Artist.objects.filter(name=artist_name).exists() == True:
+        my_path = os.path.dirname(os.path.abspath(__file__))
+        video_path = os.path.join(my_path, 'videos')
 
-            artist = Artist.objects.get(name=artist_name) 
-            my_path = os.path.dirname(os.path.abspath(__file__))
-            video_path = os.path.join(my_path, 'videos')
-
-            ydl_opts = {
-                    'restrictfilenames': 'true'
+        ydl_opts = {
+                'restrictfilenames': 'true',
+                'format': 'mp4' 
                     }
-            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(youtube_url, download=True)
-                file_name = ydl.prepare_filename(info)
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(youtube_url, download=True)
+            file_name = ydl.prepare_filename(info)
 
-            current_path = os.path.dirname(os.path.abspath(__file__))
-            file_path = os.path.join(current_path, 'thumbnails')
-            thumbnail_image_path = check_image_type(thumbnail_url, file_path)
+        current_path = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(current_path, 'thumbnails')
+        thumbnail_image_path = check_image_type(thumbnail_url, file_path)
 
+        media_file = open(file_name, 'rb')
+        thumbnail_image = open(thumbnail_image_path, 'rb')
 
-            media_file = open(file_name, 'rb')
-            thumbnail_image = open(thumbnail_image_path, 'rb')
+        data = {
+            'name': song_title,
+            'artistname': artist_name
+            }
 
-            data = {
-                'name': song_title,
-                'video_url': youtube_url
-                }
+        user_file = User.objects.get(id=1)
+        token_admin = Token.objects.get_or_create(user=user_file)
 
-            user_file = User.objects.get(id=1)
-            token_admin = Token.objects.get_or_create(user=user_file)
+        headers = {
+            "Authorization": "Token {}".format(token_admin[0])
+            }
 
-            headers = {
-                "Authorization": "Token {}".format(token_admin[0])
-                }
-            print('Synced song') 
-            artist_request = requests.post('http://{}:8000/dtunes/artists/artist/{}/'.format(client_ip, artist.pk), files={'media_file': media_file, 'thumbnail': thumbnail_image}, data=data, headers=headers)
+        sync_request = requests.post('http://{}:8000/dtunes/songs/sync/'.format(client_ip), files={'media_file': media_file, 'thumbnail': thumbnail_image}, data=data, headers=headers)
+        print(sync_request.status_code)
+        time.sleep(1)
 
-            #empty_dir(video_path)
-            #empty_dir(file_path)
-            os.remove(file_name)
-            print('REMOVED FILE')
-            return 'Added song to exising artist'
-        else:
-            create_artist = Artist()
-            create_artist.name = artist_name
-            create_artist.channel_id = "fuck it"
-            create_artist.save()
-
-            print('Created artist')
-
-            my_path = os.path.dirname(os.path.abspath(__file__))
-            video_path = os.path.join(my_path, 'videos')
-            print('got here')
-
-            ydl_opts = {
-                    'restrictfilenames': 'true'
-                    }
-
-            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(youtube_url, download=True)
-                file_name = ydl.prepare_filename(info)
-
-            current_path = os.path.dirname(os.path.abspath(__file__))
-            file_path = os.path.join(current_path, 'thumbnails')
-
-            thumbnail_image_path = check_image_type(thumbnail_url, file_path)
-
-            media_file = open(file_name, 'rb')
-            thumbnail_image = open(thumbnail_image_path, 'rb')
-
-            user_file = User.objects.get(id=1)
-            token_admin = Token.objects.get_or_create(user=user_file)
-
-            data = {
-                    'name': song_title,
-                    'video_url': youtube_url
-                    }
-
-            headers = {
-                    "Authorization": "Token {}".format(token_admin[0])
-                    }
-                
-            print('synced song') 
-            print('hitting endpoint')
-            artist_request = requests.post('http://{}:8000/dtunes/artists/artist/{}/'.format(client_ip, create_artist.pk), files={'media_file': media_file, 'thumbnail': thumbnail_image}, data=data, headers=headers)
-            print(artist_request.status_code)
-
-            empty_dir(file_path)
-            os.remove(file_name)
-            print('Removed file')
-
-            return 'Created song' 
-
+        os.remove(file_name)
+        
             
 class Song(models.Model): 
     name = models.CharField(max_length=200) 
     date_posted = models.DateTimeField(default=timezone.now) 
-    media_file = models.FileField(upload_to='api_songs')
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE) 
+    media_file = models.FileField(upload_to='api_songs') 
     thumbnail = models.ImageField(default='song_thumbnails/default.jpg', upload_to='song_thumbnails')
     plays = models.IntegerField(default=0) 
-    artistname = models.ForeignKey(Artist,related_name='apinameartist', on_delete=models.CASCADE) 
+    artistname = models.CharField(max_length=1000)
     video_id = models.CharField(default="video_id", max_length=50) 
     objects = SongManager()
 

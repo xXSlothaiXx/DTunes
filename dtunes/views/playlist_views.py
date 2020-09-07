@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from dtunes.models import Artist, Song, Playlist, Profile
-from dtunes.serializers import RegistrationSerializer, ViewUserSerializer, CreateArtistPhotoSerializer, CreateArtistSerializer, CreatePlaylistPhotoSerializer, CreatePlaylistSerializer, ViewPlaylistSerializer, ViewArtistSerializer, ViewSongSerializer
+from dtunes.models import  Song, Playlist, Profile
+from dtunes.serializers import *
 from django.shortcuts import render
 from rest_framework.views import APIView
 from django.http import HttpResponse, Http404
